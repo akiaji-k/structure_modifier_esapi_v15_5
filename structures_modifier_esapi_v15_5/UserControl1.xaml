@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="VMS.TPS.Script"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VMS.TPS"
+            xmlns:local1="clr-namespace:structures_modifier_esapi_v15_5.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="ID" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBox Grid.Row="0" Grid.Column="1" Name="IdTextBox" TextWrapping="Wrap" Text="{Binding Id.Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsReadOnly="True" />
+            <Label Grid.Row="0" Grid.Column="2" Content="名前" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBox Grid.Row="0" Grid.Column="3" Name="NameTextBox" TextWrapping="Wrap" Text="{Binding Name.Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsReadOnly="True" />
+            <Label Grid.Row="1" Grid.Column="0" Content="撮像日" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBox Grid.Row="1" Grid.Column="1" Name="DateTextBox" TextWrapping="Wrap" Text="{Binding Date.Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsReadOnly="True" />
+            <Label Grid.Row="1" Grid.Column="2" Content="StructureSet" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBox Grid.Row="1" Grid.Column="3" Name="StructureSetTextBox" TextWrapping="Wrap" Text="{Binding StructureSetName.Value, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsReadOnly="True" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Name="StructuresScroll" Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <ListBox x:Name="structuresListBox" ItemsSource="{Binding StructuresViewSource.View, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content="{Binding st.Id, UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding is_selected, UpdateSourceTrigger=PropertyChanged}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            </ScrollViewer>
+            <Grid Grid.Column="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="10*"/>
+                </Grid.RowDefinitions>
+                <RadioButton Grid.Row="0" x:Name="clearRadioButton" Content="Clear from all planes" IsChecked="{Binding IsClearButtonChecked}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <RadioButton Grid.Row="1" x:Name="resolutionRadioButton" Content="Convert to default resolution" IsChecked="{Binding IsResolutionButtonChecked}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <Button Grid.Row="2" x:Name="processButton" Content="Process" Command="{Binding ClickCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10, 0, 10, 0"/>
+            </Grid>
+        </Grid>
+    </Grid>
+
+
+    <UserControl.DataContext>
+        <local1:ViewModel/>
+    </UserControl.DataContext>
+</UserControl>
